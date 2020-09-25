@@ -93,7 +93,7 @@ class ToolCommands extends AbstractCommands
         if (isset($endpointUrl) && isset($composerLock['packages'])) {
             $result = self::getQaEndpointContent($endpointUrl, $basicAuth);
             $data = json_decode($result, true);
-            $modules = array_filter(array_combine(array_column($data, 'name'), $data));
+            $modules = array_filter(array_combine(array_column($data, 'full_name'), $data));
 
             // To test this command execute it with the --test-command option:
             // ./vendor/bin/run toolkit:whitelist-components --test-command --endpoint-url="https://webgate.ec.europa.eu/fpfis/qa/api/v1/package-reviews?version=8.x"
