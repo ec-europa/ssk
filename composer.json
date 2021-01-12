@@ -16,7 +16,7 @@
         "cweagans/composer-patches": "^1.4",
         "drush/drush": "^9.7.1 || ^10.0.0",
         "ec-europa/qa-automation": "^4.0.0",
-        "guzzlehttp/guzzle": "^6.3",
+        "guzzlehttp/guzzle": "^7.2",
         "openeuropa/task-runner": "^1.0.0-beta6"
     },
     "require-dev": {
