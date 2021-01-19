@@ -15,7 +15,7 @@
         "ext-json": "*",
         "cweagans/composer-patches": "^1.4",
         "drush/drush": "^9.7.1 || ^10.0.0",
-        "ec-europa/qa-automation": "^4.0.0",
+        "ec-europa/qa-automation": "dev-upgrade_9.1.x#5762151960311b35ed1502589ddd3ca736b02835",
         "guzzlehttp/guzzle": "^6.3",
         "openeuropa/task-runner": "^1.0.0-beta6"
     },
@@ -42,7 +42,7 @@
     "config": {
         "sort-packages": true,
         "platform": {
-            "php": "7.1.9"
+            "php": "7.3.20"
         }
     }
 }
