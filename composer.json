@@ -15,7 +15,7 @@
         "ext-json": "*",
         "cweagans/composer-patches": "^1.4",
         "drush/drush": "^9.7.1 || ^10.0.0",
-        "ec-europa/qa-automation": "dev-upgrade_9.1.x#ea91268cbe34b7d583b36f2693d69cc065ac3b51",
+        "ec-europa/qa-automation": "dev-release/5.x",
         "guzzlehttp/guzzle": "^6.3",
         "openeuropa/task-runner": "^1.0.0-beta6"
     },
