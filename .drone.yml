@@ -14,46 +14,46 @@ workspace:
 
 services:
   web:
-    image: fpfis/httpd-php-ci:${PHP_VERSION=7.2}
+    image: fpfis/httpd-php:${PHP_VERSION=7.3}-ci
     environment:
       - DOCUMENT_ROOT=/test/toolkit
 
 pipeline:
   composer-install:
     group: prepare
-    image: fpfis/httpd-php-ci:${PHP_VERSION=7.2}
+    image: fpfis/httpd-php:${PHP_VERSION=7.3}-ci
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
     commands:
+      - composer self-update --${COMPOSER_VERSION}
       - composer install --ansi --no-suggest --no-progress
 
   composer-update-lowest:
     group: post-prepare
-    image: fpfis/httpd-php-ci:${PHP_VERSION=7.2}
+    image: fpfis/httpd-php:${PHP_VERSION=7.3}-ci
     volumes:
       - /cache/${DRONE_REPO_NAME}:/cache
     commands:
-      - composer update --prefer-lowest --prefer-stable --ansi --no-suggest --no-progress
+      - composer self-update --${COMPOSER_VERSION}
+      - composer install --ansi --no-suggest --no-progress
+      - composer update --prefer-${COMPOSER_BOUNDARY=lowest} --prefer-stable --ansi --no-suggest --no-progress
     when:
       matrix:
         COMPOSER_BOUNDARY: lowest
 
   grumphp:
     group: test
-    image: fpfis/httpd-php-ci:${PHP_VERSION=7.2}
+    image: fpfis/httpd-php:${PHP_VERSION=7.3}-ci
     commands:
       - ./vendor/bin/grumphp run
-
-  phpunit:
-    group: test
-    image: fpfis/httpd-php-ci:${PHP_VERSION=7.2}
-    commands:
-      - ./vendor/bin/phpunit
 
 matrix:
   PHP_VERSION:
     - 7.3
     - 7.4
+  COMPOSER_VERSION:
+    - 1
+    - 2
   COMPOSER_BOUNDARY:
     - lowest
     - highest
