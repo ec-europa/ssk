@@ -10,7 +10,7 @@
     stopOnFailure               = "false"
     bootstrap                   = "vendor/autoload.php">
     <testsuites>
-        <testsuite>
+        <testsuite name="default">
             <directory>tests/</directory>
         </testsuite>
     </testsuites>
