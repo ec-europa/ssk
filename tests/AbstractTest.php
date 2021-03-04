@@ -40,7 +40,7 @@ abstract class AbstractTest extends TestCase
     protected function assertContainsNotContains($content, array $expected)
     {
         if (!empty($expected['contains'])) {
-            $this->assertContains($this->trimEachLine($expected['contains']), $this->trimEachLine($content));
+            $this->assertContains($this->trimEachLine($expected['contains']), [$this->trimEachLine($content)]);
             $this->assertEquals(substr_count($this->trimEachLine($content), $this->trimEachLine($expected['contains'])), 1, 'String found more than once.');
         }
 
