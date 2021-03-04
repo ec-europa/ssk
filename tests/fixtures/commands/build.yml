@@ -4,26 +4,14 @@
       root: web
   expectations:
   - contains: |
-      [Simulator] Simulating ExecStack()
+       [Simulator] Simulating ExecStack()
           ->stopOnFail()
-          ->exec('./vendor/bin/run drupal:settings-setup --root=web')
-
-- command: 'toolkit:build-dev'
-  configuration:
-    drupal:
-      root: web
-    toolkit:
-      build:
-        dev:
-          commands:
-          - "command-one"
-          - "command-two"
-  expectations:
-  - contains: |
-      [Simulator] Simulating ExecStack()
+          ->exec('./vendor/bin/run drupal:settings-setup --root=build')
+       [Simulator] Simulating ExecStack()
           ->stopOnFail()
-          ->exec('./vendor/bin/run drupal:settings-setup --root=web')
-      [Simulator] Simulating OpenEuropa\TaskRunner\Tasks\CollectionFactory\CollectionFactory(array (
-          0 => 'command-one',
-          1 => 'command-two',
-      ))
+          ->exec('mkdir -p build/sites/default/files')
+          ->exec('chmod ug=rwx,o= build/sites/default/files')
+       [Simulator] Simulating ExecStack()
+          ->stopOnFail()
+          ->exec('mkdir -p build/sites/default/private_files')
+          ->exec('chmod ug=rwx,o= build/sites/default/private_files')

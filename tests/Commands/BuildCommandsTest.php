@@ -46,7 +46,7 @@ class BuildCommandsTest extends AbstractTest
         file_put_contents($configFile, Yaml::dump($config));
 
         // Run command.
-        $input = new StringInput($command . ' --simulate --working-dir=' . $this->getSandboxRoot());
+        $input = new StringInput($command . ' --simulate');
         $output = new BufferedOutput();
         $runner = new TaskRunner($input, $output, $this->getClassLoader());
         $runner->run();
