@@ -20,7 +20,7 @@ pipeline:
       - /cache/${DRONE_REPO_NAME}:/cache
     commands:
       - composer self-update --${COMPOSER_VERSION}
-      - composer install --ansi --no-suggest --no-progress
+      - composer install --ansi --no-suggest --no-progress --no-cache
 
   composer-update-lowest:
     group: post-prepare
@@ -30,7 +30,7 @@ pipeline:
     commands:
       - composer self-update --${COMPOSER_VERSION}
       - composer install --ansi --no-suggest --no-progress
-      - composer update --prefer-${COMPOSER_BOUNDARY=lowest} --prefer-stable --ansi --no-suggest --no-progress
+      - composer update --prefer-${COMPOSER_BOUNDARY=lowest} --prefer-stable --ansi --no-suggest --no-progress --no-cache
     when:
       matrix:
         COMPOSER_BOUNDARY: lowest
