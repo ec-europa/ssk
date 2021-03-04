@@ -1,12 +1,6 @@
 clone:
   git:
     image: plugins/git:next
-    when:
-      event: [ push, pull_request, tag ]
-  git:
-    image: plugins/git
-    when:
-      event: [ deployment ]
 
 workspace:
   base: /test
