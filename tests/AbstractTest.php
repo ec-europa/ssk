@@ -17,7 +17,7 @@ abstract class AbstractTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         if (!is_dir($this->getSandboxRoot())) {
             mkdir($this->getSandboxRoot());
