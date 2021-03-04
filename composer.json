@@ -11,16 +11,16 @@
         "source": "https://github.com/ec-europa/toolkit"
     },
     "require": {
-        "php": "^7.1",
+        "php": "^7.3",
         "ext-json": "*",
         "cweagans/composer-patches": "^1.4",
-        "drush/drush": "^9.7.1 || ^10.0.0",
+        "drush/drush": "^9.7.1 || ^10.0",
         "ec-europa/qa-automation": "dev-release/5.x",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": ">=9.7.1",
         "openeuropa/task-runner": "^1.0.0-beta6"
     },
     "require-dev": {
-        "phpunit/phpunit": "~6.0"
+        "phpunit/phpunit": ">6.0"
     },
     "suggest": {
         "drupal/console": "The Drupal CLI, tool to generate boilerplate code, interact with and debug Drupal."
