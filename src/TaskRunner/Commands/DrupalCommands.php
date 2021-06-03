@@ -70,6 +70,7 @@ class DrupalCommands extends Drupal8Commands
      *
      * @option root                     Drupal root.
      * @option sites-subdir             Drupal site subdirectory.
+     * @option settings-override-file   Drupal site settings override filename.
      * @option force                    Drupal force generation of a new
      *                                  settings.php.
      * @option skip-permissions-setup   Drupal skip permissions setup.
@@ -77,6 +78,7 @@ class DrupalCommands extends Drupal8Commands
     public function settingsSetup(array $options = [
         'root' => InputOption::VALUE_REQUIRED,
         'sites-subdir' => InputOption::VALUE_REQUIRED,
+        'settings-override-file' => InputOption::VALUE_REQUIRED,
         'force' => false,
         'skip-permissions-setup' => false,
     ])
@@ -84,11 +86,19 @@ class DrupalCommands extends Drupal8Commands
         // Get default.settings.php and settings.php paths.
         $settings_default_path = $options['root'] . '/sites/default/default.settings.php';
         $settings_path = $options['root'] . '/sites/' . $options['sites-subdir'] . '/settings.php';
+        $settings_override_path = $options['root'] . '/sites/' . $options['sites-subdir'] . '/' . $options['settings-override-file'];
 
+        // Save the filename of the override file in a single variable to use it
+        // in the heredoc variable $custom_config hereunder.
+        $settings_override_filename = $options['settings-override-file'];
+
+        $custom_config = $this->getDrupal()->getSettingsSetupAddendum($settings_override_filename);
+        
         $collection = [];
 
         // Copy default.settings.php on settings.php, if the latter does not exists.
         if (!file_exists($settings_path)) {
+            $collection[] = $this->taskWriteToFile($settings_default_path)->append()->lines([$custom_config]);
             $collection[] = $this->taskFilesystemStack()
                 ->copy($settings_default_path, $settings_path);
         }
@@ -102,6 +112,11 @@ class DrupalCommands extends Drupal8Commands
         $collection[] = $this->taskWriteToFile($settings_path)
             ->append()
             ->text($this->getToolkitSettingsBlock());
+
+        $collection[] = $this->taskWriteConfiguration(
+            $settings_override_path,
+            $this->getConfig()
+        )->setConfigKey('drupal.settings');
 
         // Set necessary permissions on the default folder.
         if (!$options['skip-permissions-setup']) {
